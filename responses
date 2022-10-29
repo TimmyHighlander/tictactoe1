@@ -1,0 +1,202 @@
+import random
+listanumeri = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "0"]
+listasino = ["s", "n"]
+listaparentesi = ["{"]
+numeri1 = ["", "1", "2"]
+numeri2 = ["1", "2", "3", "4", "5", "6", "7", "8", "9"]
+numeri3 = ["0", "1", "2", "4", "5", "5", "5", "6", "8", "9", "10"]
+n1 = ["0", "2", "4", "6", "8"]
+n2 = ["1", "3", "5", "7"]
+n3 = ["9"]
+listaangoli = ["0", "2", "8", "10"]
+a = "b"
+c = "b"
+z = a.replace("c", "s")
+print(z)
+
+def sample_responses(input_text, tag):
+
+ user_message = str(input_text).lower()
+ fin = open("pippo.txt", "rt")
+ aux = fin.readline()
+ fin.close()
+ if aux=="":
+     if user_message=="gioca":
+         p = random.choice(listasino)
+         partita = "123\n456\n789"
+         x = open("pippo.txt", "w").write("ciao")
+         if p=="s":
+             q = int(random.choice(numeri3))
+             z = partita[q]
+             partita = partita.replace(z, "X")
+             c = open(tag, "w").write(partita)
+             return "Inizio io! Sono le X, e tu le O." +  " Seleziona un numero per sostituire la casella corrispondente con una O. \n\n" + str(partita)
+         elif p=="n":
+             c = open(tag, "w").write(partita)
+             return "Inizi tu! Sei le O, e io le X." +  " Seleziona un numero per sostituire la casella corrispondente con una O. \n\n" + str(partita)
+
+ else:
+     mossabot = ""
+     pitone = ""
+     g = str(open(tag, "r").read())
+     v = (" ".join(g))
+     if user_message in str(v):
+        v = v.replace(user_message, "O")
+        v = v.replace(" ", "")
+        open(tag, "w").write(v)
+        if (v[0]==v[1]==v[2] and v[0]=="O") or (v[4]==v[5]==v[6] and v[4]=="O") or (v[8]==v[9]==v[10] and v[8]=="O") or (v[0]==v[4]==v[8] and v[0]=="O") or (v[1]==v[5]==v[9] and v[1]=="O") or v[2]==v[6]==v[10]=="O" or v[0]==v[5]==v[10]=="O" or v[2]==v[5]==v[8]=="O":
+            open("pippo.txt", "w").write("")
+            return v + "\n\nBravo, hai vinto!"
+        if (v[0]==v[1]==v[2] and v[0]=="X") or (v[4]==v[5]==v[6] and v[4]=="X") or (v[8]==v[9]==v[10] and v[8]=="X") or (v[0]==v[4]==v[8] and v[0]=="X") or (v[1]==v[5]==v[9] and v[1]=="X") or v[2]==v[6]==v[10]=="X" or v[0]==v[5]==v[10]=="X" or v[2]==v[5]==v[8]=="X":
+            open("pippo.txt", "w").write("")
+            return v + "\n\nPeccato, hai perso!"
+        if (v[0]=="X" or v[0]=="O") and (v[1]=="X" or v[1]=="O") and (v[2]=="X" or v[2]=="O") and (v[4]=="X" or v[4]=="O") and (v[5]=="X" or v[5]=="O") and (v[6]=="X" or v[6]=="O") and (v[8]=="X" or v[8]=="O") and (v[9]=="X" or v[9]=="O") and (v[10]=="X" or v[10]=="O"):
+            open("pippo.txt", "w").write("")
+            return v + "\n\n Bella partita, pareggio!"
+        else:
+            rea = open(tag, "r").read()
+            reapap = open(tag, "r").read()
+            print("\np\n" + rea[4] + rea[5] + rea[6] + "\np\n")
+            v = (" ".join(rea))
+            if rea[1]=="O" and rea[5]=="O":
+                if rea[9]=="8":
+                    mossabot=rea.replace("8", "X")
+                elif rea[0]=="1":
+                    mossabot=rea.replace("1", "X")
+            if "O" in rea[5]:
+                l = int(random.choice(listaangoli))
+                mossabot = rea.replace(rea[l], "X")
+                open(tag, "w").write(mossabot)
+            if "5" in v:
+                mossabot = rea.replace("5", "X")
+                open(tag, "w").write(mossabot)
+            if rea[0]=="O":
+                rea = open(tag, "r").read()
+                if rea[1]=="O" or rea[2]=="O":
+                    if rea[1]!="X" or rea[2]!="X" or rea[0]!="X":
+                        mossabot = rea.replace("2", "X")
+                        mossabot = mossabot.replace("3", "X")
+                        print("\np\n" + mossabot + "\np\n")
+                        open(tag, "w").write(mossabot)
+                if rea[5]=="O" or rea[10]=="O":
+                    if rea[5] != "X" or rea[10] != "X" or rea[0] != "X":
+                        print("\npz\n" + rea + "\np\n")
+                        mossabot = rea.replace("5", "X")
+                        mossabot = mossabot.replace("9", "X")
+                        open(tag, "w").write(mossabot)
+                if rea[8]=="O" or rea[4]=="O":
+                    if rea[8] != "X" or rea[4] != "X" or rea[0] != "X":
+                     if mossabot == "":
+                        print("bao")
+                        mossabot = rea.replace("7", "X")
+                        mossabot = mossabot.replace("4", "X")
+                        open(tag, "w").write(mossabot)
+            if rea[1]=="O":
+                rea = open(tag, "r").read()
+                if rea[9] == "O" or rea[5] == "O":
+                    if rea[1] != "X" or rea[5] != "X" or rea[9] != "X":
+                        mossabot   = rea.replace("5", "X")
+                        mossabot = mossabot.replace("8", "X")
+                        open(tag, "w").write(mossabot)
+                if rea[0] == "O" or rea[2] == "O":
+                    if rea[1] != "X" or rea[0] != "X" or rea[2] != "X":
+                        mossabot = rea.replace("1", "X")
+                        mossabot = mossabot.replace("3", "X")
+                        open(tag, "w").write(mossabot)
+            if rea[2]=="O":
+                rea = open(tag, "r").read()
+                if rea[5] == "O" or rea[8] == "O":
+                    if rea[2] != "X" or rea[5] != "X" or rea[8] != "X":
+                        mossabot = rea.replace("5", "X")
+                        mossabot = mossabot.replace("7", "X")
+                        open(tag, "w").write(mossabot)
+                if rea[6] == "O" or rea[10] == "O":
+                    if rea[2] != "X" or rea[6] != "X" or rea[10] != "X":
+                        mossabot = rea.replace("6", "X")
+                        mossabot = mossabot.replace("9", "X")
+                        open(tag, "w").write(mossabot)
+            if rea[4] == "O":
+                rea = open(tag, "r").read()
+                if rea[5] == "O" or rea[6] == "O":
+                    if rea[4] != "X" or rea[5] != "X" or rea[6] != "X":
+                        mossabot = rea.replace("5", "X")
+                        mossabot = mossabot.replace("6", "X")
+                        open(tag, "w").write(mossabot)
+                if rea[0] == "O" or rea[8] == "O":
+                    if rea[4] != "X" or rea[8] != "X" or rea[0] != "X":
+                        mossabot = rea.replace("1", "X")
+                        mossabot = mossabot.replace("7", "X")
+                        open(tag, "w").write(mossabot)
+            if rea[8] == "O":
+                rea = open(tag, "r").read()
+                if rea[9] == "O" or rea[10] == "O":
+                    if rea[8] != "X" or rea[9] != "X" or rea[10] != "X":
+                        mossabot = rea.replace("8", "X")
+                        mossabot = mossabot.replace("9", "X")
+                        open(tag, "w").write(mossabot)
+                if rea[4] == "O" or rea[0] == "O":
+                    if rea[4] != "X" or rea[0] != "X" or rea[8] != "X":
+                        mossabot = rea.replace("4", "X")
+                        mossabot = mossabot.replace("1", "X")
+                        open(tag, "w").write(mossabot)
+            if rea[5] == "O":
+                rea = open(tag, "r").read()
+                if rea[0] == "O" or rea[10] == "O":
+                    if rea[0] != "X" or rea[5] != "X" or rea[10] != "X":
+                        mossabot = rea.replace("1", "X")
+                        mossabot = mossabot.replace("9", "X")
+                        open(tag, "w").write(mossabot)
+                if rea[2] == "O" or rea[8] == "O":
+                    if rea[2] != "X" or rea[8] != "X" or rea[5] != "X":
+                        mossabot = rea.replace("7", "X")
+                        mossabot = mossabot.replace("3", "X")
+                        open(tag, "w").write(mossabot)
+                if rea[1] == "O" or rea[9] == "O":
+                    if rea[1] != "X" or rea[5] != "X" or rea[9] != "X":
+                        mossabot = rea.replace("2", "X")
+                        mossabot = mossabot.replace("8", "X")
+                        open(tag, "w").write(mossabot)
+                if rea[4] == "O" or rea[6] == "O":
+                    if rea[4] != "X" or rea[5] != "X" or rea[6] != "X":
+                        mossabot = rea.replace("4", "X")
+                        mossabot = mossabot.replace("6", "X")
+                        open(tag, "w").write(mossabot)
+            if rea[6] == "O":
+                rea = open(tag, "r").read()
+                if rea[2] == "O" or rea[10] == "O":
+                    if rea[2] != "X" or rea[6] != "X" or rea[10] != "X":
+                        mossabot = rea.replace("3", "X")
+                        mossabot = mossabot.replace("9", "X")
+                        open(tag, "w").write(mossabot)
+                if rea[4] == "O" or rea[5] == "O":
+                    if rea[4] != "X" or rea[6] != "X" or rea[5] != "X":
+                        mossabot = rea.replace("4", "X")
+                        mossabot = mossabot.replace("5", "X")
+                        open(tag, "w").write(mossabot)
+            if rea[9] == "O":
+                rea = open(tag, "r").read()
+                if rea[8] == "O" or rea[10] == "O":
+                    if rea[8] != "X" or rea[9] != "X" or rea[10] != "X":
+                        mossabot = rea.replace("7", "X")
+                        mossabot = mossabot.replace("9", "X")
+                        open(tag, "w").write(mossabot)
+
+
+
+
+
+            v = open(tag, "r").read()
+            if (v[0] == v[1] == v[2] and v[0] == "O") or (v[4] == v[5] == v[6] and v[4] == "O") or (v[1] == v[5] == v[9] and v[1] == "O") or v[2] == v[6] == v[10] == "O" or v[0] == v[5] == v[10] == "O" or v[2] == v[5] == v[8] == "O":
+                open("pippo.txt", "w").write("")
+                return v + "\n\nBravo, hai vinto!"
+            if (v[0] == v[1] == v[2] and v[0] == "X") or (v[4] == v[5] == v[6] and v[4] == "X") or (v[8] == v[9] == v[10] and v[8] == "X") or (v[0] == v[4] == v[8] and v[0] == "X") or (v[1] == v[5] == v[9] and v[1] == "X") or v[2] == v[6] == v[10] == "X" or v[0] == v[5] == v[10] == "X" or v[2] == v[5] == v[8] == "X":
+                open("pippo.txt", "w").write("")
+                return v + "\n\nPeccato, hai perso!"
+            if (v[0] == "X" or v[0] == "O") and (v[1] == "X" or v[1] == "O") and (v[2] == "X" or v[2] == "O") and (
+                    v[4] == "X" or v[4] == "O") and (v[5] == "X" or v[5] == "O") and (v[6] == "X" or v[6] == "O") and (
+                    v[8] == "X" or v[8] == "O") and (v[9] == "X" or v[9] == "O") and (v[10] == "X" or v[10] == "O"):
+                open("pippo.txt", "w").write("")
+                return v + "\n\n Bella partita, pareggio!"
+            return "Mhh, hai mosso, ora la partita è così \n\n" + reapap + "\n\n Nel mio turno ho mosso, ecco cosa ho mosso \n\n" + mossabot
+
+
